@@ -1,6 +1,9 @@
 import React from 'react'
 import GroupChatQueue from './GroupChatQueue.js'
+import useApiHook from '../../customHooks/useApiHook.js';
 import cssModule from "./GroupChatLanding.css"
+
+import { URL_GET_INITIAL_GROUP_LOAD_DATA } from '../../commons/constant.js';
 
 const dataList = [
     {
@@ -29,6 +32,10 @@ const dataList = [
     }
 ]
 const GroupChatLanding = () => {
+
+    const groupData = useApiHook(URL_GET_INITIAL_GROUP_LOAD_DATA + "?userId=1234", { "method": "GET" });
+
+    console.log(groupData);
     return <div className="groupMessageContainer">
         {
             dataList.map(groupData => <GroupChatQueue groupData={groupData}></GroupChatQueue>)
