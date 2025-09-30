@@ -5,33 +5,6 @@ import cssModule from "./GroupChatLanding.css"
 
 import { URL_GET_INITIAL_GROUP_LOAD_DATA } from '../../commons/constant.js';
 
-const dataList = [
-    {
-        "imgUrl": "/logo192.png",
-        "groupName": "Java Group",
-        "groupCreatedAt": "2024/23/11",
-        "createdBy": "Hrithik"
-    },
-    {
-        "imgUrl": "/logo192.png",
-        "groupName": "Python Group",
-        "groupCreatedAt": "2024/20/11",
-        "createdBy": "Sam"
-    },
-    {
-        "imgUrl": "/logo192.png",
-        "groupName": "Node.js Group",
-        "groupCreatedAt": "2024/19/11",
-        "createdBy": "Jam"
-    },
-    {
-        "imgUrl": "/logo192.png",
-        "groupName": "C++ Group",
-        "groupCreatedAt": "2024/26/11",
-        "createdBy": "Dummy"
-    }
-]
-
 function formGroupsWithData(groups) {
     console.log(groups);
     return groups.map(group => {
