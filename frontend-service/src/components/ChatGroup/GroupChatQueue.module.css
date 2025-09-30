@@ -14,5 +14,12 @@
 }
 
 .groupName{
+    margin-left: 5%;
     font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 1rem;
+}
+
+.ChatGroupQueue > span:last-child {
+  margin-left: auto;
 }
