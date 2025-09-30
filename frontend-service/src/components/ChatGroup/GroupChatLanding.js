@@ -5,42 +5,32 @@ import cssModule from "./GroupChatLanding.css"
 
 import { URL_GET_INITIAL_GROUP_LOAD_DATA } from '../../commons/constant.js';
 
-const dataList = [
-    {
-        "imgUrl": "/logo192.png",
-        "groupName": "Java Group",
-        "groupCreatedAt": "2024/23/11",
-        "createdBy": "Hrithik"
-    },
-    {
-        "imgUrl": "/logo192.png",
-        "groupName": "Python Group",
-        "groupCreatedAt": "2024/20/11",
-        "createdBy": "Sam"
-    },
-    {
-        "imgUrl": "/logo192.png",
-        "groupName": "Node.js Group",
-        "groupCreatedAt": "2024/19/11",
-        "createdBy": "Jam"
-    },
-    {
-        "imgUrl": "/logo192.png",
-        "groupName": "C++ Group",
-        "groupCreatedAt": "2024/26/11",
-        "createdBy": "Dummy"
-    }
-]
+function formGroupsWithData(groups) {
+    console.log(groups);
+    return groups.map(group => {
+        return {
+            "key": group["channelId"],
+            "imgUrl": "/logo192.png",
+            "groupName": group["chanelName"],
+        }
+    })
+}
 const GroupChatLanding = () => {
 
     const groupData = useApiHook(URL_GET_INITIAL_GROUP_LOAD_DATA + "?userId=1234", { "method": "GET" });
+    let groups = groupData["data"];
+    groups = groups['groupsWithMessages'];
 
-    console.log(groupData);
+    if (groups == undefined || groups == null) return <>
+        Wait data is loading
+    </>
+
     return <div className="groupMessageContainer">
         {
-            dataList.map(groupData => <GroupChatQueue groupData={groupData}></GroupChatQueue>)
+            formGroupsWithData(groups).map(groupData => <GroupChatQueue key={groupData["key"]} groupData={groupData}></GroupChatQueue>)
         }
     </div>
+
 }
 
 export default GroupChatLanding;
