@@ -5,13 +5,15 @@ import CommonKeyValue from "../commonComponents/CommonKeyValue.js";
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
 const GroupChatQueue = (props) => {
+    console.log("group data in props ", props.groupData);
 
     return <div className={cssModule.ChatGroupQueue}>
         <ProfileImage url={props.groupData.imgUrl}></ProfileImage>
-        <span className={cssModule.groupName}>{props.groupData.groupName}</span>
-        <span>
-            <BsThreeDotsVertical size={24}></BsThreeDotsVertical>
-        </span>
+        <div className={cssModule.chatGroupShortSummary}>
+            <span className={cssModule.groupName}>{props.groupData.groupName}</span>
+            <span className={cssModule.groupLastMessage}>{props.groupData.latestMessage.message}</span>
+            <span className={cssModule.groupLastMessageSentOn}>{props.groupData.latestMessage.sentOn}</span>
+        </div>
     </div>
 }
 
