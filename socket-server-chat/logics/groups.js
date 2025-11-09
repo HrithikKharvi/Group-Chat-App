@@ -1,12 +1,3 @@
-module.exports["onMessage"] = (data, socket, io) => {
-    let { message, group, username } = data;
-    socket.broadcast.to(group).emit("message_res", {
-        "message": message,
-        "username": username,
-        "group": group
-    });
-}
-
 module.exports["onLeave"] = (data, socket, io) => {
     let { group } = data.group;
     console.log(group)
