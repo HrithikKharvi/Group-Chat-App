@@ -2,7 +2,10 @@ const { Kafka } = require("kafkajs");
 
 const kafka = new Kafka({
     clientId: process.env["KAFKA.AVRO.PRODUCER.GROUPMESSAGE.SERVER.CLIENT.ID"],
-    brokers: [process.env["KAFKA.AVRO.PRODUCER.GROUPMESSAGE.SERVER.HOST.IP"]]
+    brokers: [process.env["KAFKA.AVRO.PRODUCER.GROUPMESSAGE.SERVER.HOST.IP"]],
+    retry: {
+        retries: process.env["KAFKA.SETTING.PRODUCER.CONNECTION.RETRY"]
+    }
 });
 
 const producer = kafka.producer();

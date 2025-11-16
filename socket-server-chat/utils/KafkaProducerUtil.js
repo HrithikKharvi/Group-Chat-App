@@ -1,19 +1,31 @@
-const { getKafkaProducer } = require("../configurations/kafkaProducer.js")
+const { getKafkaProducer } = require("../configurations/kafkaProducer.js");
+const InternalException = require("../exceptions/InternalException.js");
+const logging = require("../logger.js");
 
 async function publishMessageToKafkaTopic(avroBuffer, topicName) {
     const producer = getKafkaProducer();
+
     try {
         await producer.connect();
         await producer.send({
             topic: topicName,
             messages: [{ value: avroBuffer }]
         });
+        logging.info("Message sent successfully");
+    } catch (error) {
+        const isConnectError = error.message?.includes("Connect");
+        const message = isConnectError
+            ? "Unable to establish connection"
+            : "Unable to send the message!";
 
-        console.log("Message sent successfuly");
-    } catch (err) {
-        console.error("Error sending message: ", err);
+        logging.error("error while connecting or sending the kafka message");
+        throw new InternalException(message);
     } finally {
-        await producer.disconnect();
+        try {
+            await producer.disconnect();
+        } catch (disconnectError) {
+            logging.warn("Failed to disconnect Kafka producer:", disconnectError.message);
+        }
     }
 }
 
